@@ -1,0 +1,28 @@
+<!doctype html>
+<html ng-app="trackApp">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+    <script src="track.js"></script>
+    <link rel="stylesheet" href="track.css">
+  </head>
+  <body>
+    <h2>Find Similar Tracks</h2>
+    <div ng-controller="TrackListController as trackList">
+      <form ng-submit="trackList.getTracks()">
+       <input type="text" ng-model="trackList.artist"  size="30"
+              placeholder="type artist name">
+      <input type="text" ng-model="trackList.track"  size="30"
+             placeholder="type track name">
+       <input class="btn-primary" type="submit" value="find">
+      </form>
+      <ul class="unstyled">
+        <li ng-repeat="track in trackList.tracks">
+          <label>
+            <span class="done-{{track.done}}">{{track.text}}</span>
+          </label>
+        </li>
+      </ul>
+      <span>{{trackList.tracks.length}} tracks found</span>
+    </div>
+  </body>
+</html>
