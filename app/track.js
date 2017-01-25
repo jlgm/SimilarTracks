@@ -12,10 +12,15 @@ angular.module('trackApp', [])
     };
 
     trackList.getTracks = function() {
-        $http.get("http://ws.audioscrobbler.com/2.0/?method=track.getsimilar&artist=" + trackList.artist + "&track=" + trackList.track + "&api_key=ed77b11b1f0965db65c3144cbffaf27b&format=json").then(function(response) {
-            console.log(response);
-            for(var i = 0; i < 50; i++) {
-                trackList.tracks.push({text:response.data.similartracks.track[i].artist.name + " - " + response.data.similartracks.track[i].name, done:false});
+        $http.get("http://ws.audioscrobbler.com/2.0/?method=track.getsimilar&artist="
+        + trackList.artist + "&track=" + trackList.track +
+        "&api_key=ed77b11b1f0965db65c3144cbffaf27b&format=json").then(function(response) {
+            //console.log(response);
+            if (response.data.error) return;
+            for(var i = 0; i < Math.min(50, response.data.similartracks.track.length); i++) {
+                trackList.tracks.push({text:response.data.similartracks.track[i].artist.name
+                    + " - " + response.data.similartracks.track[i].name + " ("
+                    + response.data.similartracks.track[i].playcount + ")", done:false});
             }
         })
     };
