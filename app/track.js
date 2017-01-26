@@ -20,7 +20,10 @@ angular.module('trackApp', [])
             for(var i = 0; i < Math.min(50, response.data.similartracks.track.length); i++) {
                 trackList.tracks.push({text:response.data.similartracks.track[i].artist.name
                     + " - " + response.data.similartracks.track[i].name + " ("
-                    + response.data.similartracks.track[i].playcount + ")", done:false});
+                    + response.data.similartracks.track[i].playcount + ")",
+                    artist: response.data.similartracks.track[i].artist.name,
+                    song: response.data.similartracks.track[i].name,
+                    count: response.data.similartracks.track[i].playcount});
             }
         })
     };
